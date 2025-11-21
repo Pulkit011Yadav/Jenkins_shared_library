@@ -7,5 +7,8 @@ def call (String dockerHUBCreds , String imagename , String tag) {
                     sh "echo \"$P\" | docker login -u \"$U\" --password-stdin"
                     sh "docker image tag ${imagename}:${tag} ${U}/${imagename}:${tag}"
                     sh "docker push ${U}/${imagename}:${tag}"
+                    sh "docker rmi ${U}/${imagename}:${tag} || true"
+                    sh "docker rmi ${imagename}:${tag} || true"
+                    sh "docker logout"
                 }
 }
